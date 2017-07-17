@@ -5,6 +5,7 @@ import {
 } from '../modules/articles';
 
 import Home from '../components/Home';
+import Table from '../components/Table';
 
 
 const mapDispatchToProps = {
@@ -13,7 +14,7 @@ const mapDispatchToProps = {
 
 const mapStateToProps = (state) => {
   return {
-    articles: getArticles(state)
+    articles: () => getArticles(state)
   };
 };
 

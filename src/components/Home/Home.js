@@ -3,16 +3,18 @@ import PropTypes from 'prop-types';
 import './Home.css';
 
 import App from '../App';
+import Table from '../Table';
+import Form from '../Form';
 
 const Home = (props) => (
   <div className="Home">
-    <App/>
+    <Table articles={[props.articles]}/>
+    <Form/>
   </div>
 );
 
 Home.propTypes = {
-  counter: PropTypes.number.isRequired,
-  increment: PropTypes.func.isRequired
+  articles: PropTypes.array.isRequired
 };
 
 export default Home;

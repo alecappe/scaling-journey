@@ -3,24 +3,40 @@ import PropTypes from 'prop-types';
 import './Table.css';
 
 
-const articles = ((a) => {
+const Table = ((props) => {
+  const rows = props.articles.map(
+    a => {
+      return (
+        <tr key={a.aid}>
+          <td>{a.title}</td>
+          <td>{a.content}</td>
+          <td>
+          <button
+            onClick={() => this.deleteArticle(props.aid)}>Delete</button>
+          </td>
+        </tr>
+      );
+    }
+  )
+
   return (
-    <tr key={a.aid}>
-      <td>{a.title}</td>
-      <td>{a.content}</td>
-      <td>
-        <img
-          className="trash"
-          alt="elimina"
-          onClick={() => this.deleteArticle(a.aid)} />
-      </td>
-    </tr>
+    <table>
+    <thead>
+      <tr>
+        <th>Titolo</th>
+        <th>Contenuto</th>
+      </tr>
+    </thead>
+    <tbody>
+      {rows}
+    </tbody>
+    </table>
   );
 });
 
 
-articles.propTypes = {
+Table.propTypes = {
   articles: PropTypes.array.isRequired
 }
 
-export default articles;
+export default Table;

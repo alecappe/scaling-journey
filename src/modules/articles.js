@@ -24,9 +24,14 @@ function fetchArticlesFailure(errmessage) {
   }
 }
 
-export function postArticle() {
+export function postArticle(articles = this.state.articles, title, content) {
   return {
-    type: POST_ARTICLE
+    type: POST_ARTICLE,
+    payload: articles.push({
+      'aid': Math.floor((Math.random() * 100) + 1),
+      'title': title,
+      'content': content
+    })
   }
 }
 
@@ -77,7 +82,12 @@ export default function reducer(state = initialState, action = {}) {
     return {
       ...state,
       articles: state.articles
-    }
+    };
+  case POST_ARTICLE:
+    return {
+      ...state,
+      articles: action.payload,
+    };
   default:
     return state;
   }

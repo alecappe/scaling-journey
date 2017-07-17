@@ -8,21 +8,23 @@ import StoryRouter from 'storybook-router';
 import Home from '../components/Home';
 import About from '../components/About';
 import App from '../components/App';
+import Table from '../components/Table';
+import Form from '../components/Form';
 
 
-storiesOf('Home', module)
-  .add('with counter', () => (
-    <Home counter={10} increment={action('incremented')}/>
-  ));
+// storiesOf('Home', module)
+//   .add('with counter', () => (
+//     <Home counter={10} increment={action('incremented')}/>
+//   ));
 
 
-storiesOf('About', module)
-  .add('to be loaded', () => (
-    <About
-      contributors={[]}
-      fetchContributors={action('fetch contributors')}
-      loaded={false}/>
-  ));
+// storiesOf('About', module)
+//   .add('to be loaded', () => (
+//     <About
+//       contributors={[]}
+//       fetchContributors={action('fetch contributors')}
+//       loaded={false}/>
+//   ));
 
 storiesOf('About', module)
   .add('with 2 contributors', () => {
@@ -78,5 +80,61 @@ storiesOf('App', module)
           fetchContributors={action('fetch contributors')}
           loaded={true}/>
       </App>
+    );
+  });
+
+  storiesOf('Table', module)
+  .add('with 2 articles', () => {
+    const articles = [{
+      aid: '1',
+      title: 'titolouno',
+      content: 'contentuno'
+    }, {
+      aid: '2',
+      title: 'titolodue',
+      content: 'contentdue'
+    }];
+
+    return (
+      <Table
+        articles={articles}
+        fetchArticles={action('fetch articles')}
+        loaded={true}/>
+    );
+  });
+
+  storiesOf('Table', module)
+  .add('0 articles', () => {
+    const articles = [];
+
+    return (
+      <Table
+        articles={articles}
+        fetchArticles={action('fetch articles')}
+        loaded={true}/>
+    );
+  });
+
+  // storiesOf('Home', module)
+  // .add('with 2 articles', () => {
+  //   const articles = [{
+  //     aid: '1',
+  //     title: 'titolouno',
+  //     content: 'contentuno'
+  //   }, {
+  //     aid: '2',
+  //     title: 'titolodue',
+  //     content: 'contentdue'
+  //   }];
+  //
+  //   return (
+  //     <Home/>
+  //   );
+  // });
+
+  storiesOf('Form', module)
+  .add('Form', () => {
+    return(
+      <Form postArticle={action('post article')}/>
     );
   });
