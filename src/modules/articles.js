@@ -24,71 +24,75 @@ function fetchArticlesFailure(errmessage) {
   }
 }
 
-export function postArticle(articles = this.state.articles, title, content) {
-  return {
-    type: POST_ARTICLE,
-    payload: articles.push({
-      'aid': Math.floor((Math.random() * 100) + 1),
-      'title': title,
-      'content': content
-    })
-  }
-}
-
-export function deleteArticle() {
-  return {
-    type: DELETE_ARTICLE
-  }
-}
-
 export function fetchArticles() {
   return dispatch => {
-    fetch(`${BASE_URL}/articles/`)
-    .then(response => {
-      if (response.ok)
-        return response.json();
-      throw new Error('Problem fetching the articles');
-    })
-    .then(jsonData => dispatch(fetchArticles(jsonData)))
-    .catch(error => dispatch(fetchArticlesFailure(error.message)));
-
+        fetch(`${BASE_URL}/articles/`)
+        .then(response => {
+          if (response.ok)
+            return response.json();
+          throw new Error('Problem fetching the articles');
+        })
+        .then(articles => dispatch(fetchArticlesSuccess(articles)))
+        .catch(error => dispatch(fetchArticlesFailure(error.message)));
   }
 }
+
+export function postArticle({aid, title, content}) {
+  return {
+    type: POST_ARTICLE,
+    payload: {
+        aid, title, content
+    }
+  }
+}
+
+export function deleteArticle(aid) {
+  return {
+    type: DELETE_ARTICLE,
+    payload: aid
+  }
+}
+
 
 // ------------------------------------
 // Selectors
 
-export const getArticles = state => state.articles;
+export const getArticles = state => state.articles.articles;
 
 // ------------------------------------
 // Store & reducer
 
 const initialState = {
-  articles: [{
-    aid: '',
-    title: '',
-    content: ''
-  }]
+  articles: [],
 };
 
 export default function reducer(state = initialState, action = {}) {
-  switch (action.type) {
-  case ARTICLES_FETCH_SUCCESS:
-    return {
-      ...state,
-      articles: state.articles
-    };
-  case ARTICLES_FETCH_FAILURE:
-    return {
-      ...state,
-      articles: state.articles
-    };
-  case POST_ARTICLE:
-    return {
-      ...state,
-      articles: action.payload,
-    };
-  default:
-    return state;
+    switch (action.type) {
+        case ARTICLES_FETCH_SUCCESS:
+            return {
+              ...state,
+              articles: action.payload,
+            };
+        case ARTICLES_FETCH_FAILURE:
+            return {
+              ...state,
+              articles: action.payload,
+            };
+        case POST_ARTICLE:
+            newArticles = state.articles.slice()
+            newArticles.push(...action.payload)
+            return {
+                ...state,
+                articles: newArticles,
+            };
+        case DELETE_ARTICLE:
+            let newArticles = state.articles.slice();
+            newArticles = newArticles.filter(e => e.aid !== action.payload);
+            return {
+                ...state,
+                articles: newArticles,
+            }
+        default:
+            return state;
   }
 }

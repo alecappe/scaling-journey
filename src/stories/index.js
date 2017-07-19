@@ -83,14 +83,14 @@ storiesOf('App', module)
     );
   });
 
-  storiesOf('Table', module)
-  .add('with 2 articles', () => {
+storiesOf('Table', module)
+    .add('with 2 articles', () => {
     const articles = [{
-      aid: '1',
+      aid: '151',
       title: 'titolouno',
       content: 'contentuno'
     }, {
-      aid: '2',
+      aid: '270',
       title: 'titolodue',
       content: 'contentdue'
     }];
@@ -98,22 +98,20 @@ storiesOf('App', module)
     return (
       <Table
         articles={articles}
-        fetchArticles={action('fetch articles')}
-        loaded={true}/>
+        deleteArticle={action('delete article')}/>
     );
-  });
+});
 
-  storiesOf('Table', module)
-  .add('0 articles', () => {
+storiesOf('Table', module)
+    .add('0 articles', () => {
     const articles = [];
 
     return (
       <Table
         articles={articles}
-        fetchArticles={action('fetch articles')}
-        loaded={true}/>
+        deleteArticle={action('delete article')}/>
     );
-  });
+});
 
   // storiesOf('Home', module)
   // .add('with 2 articles', () => {
@@ -132,9 +130,9 @@ storiesOf('App', module)
   //   );
   // });
 
-  storiesOf('Form', module)
-  .add('Form', () => {
+storiesOf('Form', module)
+    .add('Form', () => {
     return(
       <Form postArticle={action('post article')}/>
     );
-  });
+});

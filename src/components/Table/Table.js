@@ -12,7 +12,7 @@ const Table = ((props) => {
           <td>{a.content}</td>
           <td>
           <button
-            onClick={() => this.deleteArticle(props.aid)}>Delete</button>
+            onClick={() => props.deleteArticle(a.aid)}>Delete</button>
           </td>
         </tr>
       );
@@ -21,22 +21,16 @@ const Table = ((props) => {
 
   return (
     <table>
-    <thead>
-      <tr>
-        <th>Titolo</th>
-        <th>Contenuto</th>
-      </tr>
-    </thead>
-    <tbody>
-      {rows}
-    </tbody>
+      <thead>
+        <tr>
+          <th>Titolo</th>
+          <th>Contenuto</th>
+        </tr>
+      </thead>
+      <tbody>
+        {rows}
+      </tbody>
     </table>
   );
 });
-
-
-Table.propTypes = {
-  articles: PropTypes.array.isRequired
-}
-
 export default Table;
