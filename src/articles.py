@@ -16,8 +16,10 @@ from peewee import Model
 from peewee import SqliteDatabase
 from peewee import UUIDField
 import uuid
+from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
+CORS(app)
 api = Api(app)
 
 DATABASE_FN = 'articles.db'
